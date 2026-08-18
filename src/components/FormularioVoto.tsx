@@ -64,10 +64,25 @@ export function FormularioVoto({ nombre, onVotoCompletado, onSalir }: Props) {
 
     if (estado === "confirmando") {
         return (
-            <div className="dialog-backdrop" style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
-                <div className="dialog" style={{ maxWidth: 520, width: "100%", maxHeight: "80vh", overflow: "auto" }}>
-                    <h2 className="dialog-title" style={{ fontSize: 26 }}>Revisa tu votación</h2>
-                    <div className="dialog-body" style={{ display: "flex", flexDirection: "column", gap: 14, fontSize: 17 }}>
+            <div>
+                <div
+                    style={{
+                        position: "sticky",
+                        top: 0,
+                        zIndex: 20,
+                        background: "var(--color-bg)",
+                        borderBottom: "2px solid var(--color-accent-200)",
+                        padding: "16px 24px",
+                    }}
+                >
+                    <h1 style={{ fontSize: 26, margin: 0 }}>Revisa tu votación</h1>
+                    <p style={{ margin: 0, fontSize: 15, color: "var(--color-neutral-700)" }}>
+                        Comprueba que todo esté bien antes de enviar.
+                    </p>
+                </div>
+
+                <main style={{ maxWidth: 640, margin: "0 auto", padding: "24px 24px 140px" }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                         {CATEGORIAS.map((cat) => {
                             const nominadoId = selecciones[cat.id];
                             const nominado = cat.nominados.find((n) => n.id === nominadoId);
@@ -76,23 +91,60 @@ export function FormularioVoto({ nombre, onVotoCompletado, onSalir }: Props) {
                                     key={cat.id}
                                     style={{
                                         display: "flex",
+                                        alignItems: "center",
                                         justifyContent: "space-between",
-                                        gap: 12,
+                                        gap: 16,
+                                        padding: "14px 0",
                                         borderBottom: "2px solid var(--color-accent-100)",
-                                        paddingBottom: 10,
                                     }}
                                 >
-                                    <span style={{ color: "var(--color-neutral-700)" }}>{cat.titulo}</span>
-                                    <span style={{ fontFamily: "var(--font-heading)", fontSize: 18 }}>{nominado?.nombre}</span>
+                                    <span style={{ fontSize: 16, color: "var(--color-neutral-700)" }}>{cat.titulo}</span>
+                                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                                        <span style={{ fontFamily: "var(--font-heading)", fontSize: 19 }}>{nominado?.nombre}</span>
+                                        {nominado?.fotoUrl ? (
+                                            <img
+                                                src={nominado.fotoUrl}
+                                                alt=""
+                                                style={{ width: 52, height: 52, borderRadius: "50%", objectFit: "cover", flex: "none" }}
+                                            />
+                                        ) : (
+                                            <div
+                                                style={{
+                                                    width: 52,
+                                                    height: 52,
+                                                    borderRadius: "50%",
+                                                    background: "var(--color-neutral-200)",
+                                                    flex: "none",
+                                                }}
+                                            />
+                                        )}
+                                    </div>
                                 </div>
                             );
                         })}
                     </div>
-                    <div className="dialog-actions">
-                        <button className="btn btn-ghost" onClick={() => setEstado("votando")} style={{ fontSize: 17 }}>
+                </main>
+
+                <div
+                    style={{
+                        position: "fixed",
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        background: "var(--color-bg)",
+                        borderTop: "2px solid var(--color-accent-200)",
+                        padding: "16px 24px",
+                        boxShadow: "var(--shadow-lg)",
+                        display: "flex",
+                        justifyContent: "center",
+                        zIndex: 20,
+                    }}
+                >
+                    <div style={{ width: "100%", maxWidth: 640, display: "flex", justifyContent: "space-between", gap: 16 }}>
+                        <button className="btn btn-secondary" onClick={() => setEstado("votando")} style={{ fontSize: 17, padding: "14px 28px" }}>
                             Volver a revisar
                         </button>
-                        <button className="btn btn-primary" onClick={confirmarEnvio} style={{ fontSize: 17 }}>
+                        <button className="btn btn-primary" onClick={confirmarEnvio} style={{ fontSize: 17, padding: "14px 28px" }}>
                             Confirmar y enviar
                         </button>
                     </div>

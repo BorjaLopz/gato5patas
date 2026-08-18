@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { iniciarSesionAnonima } from "../lib/auth";
 import { yaVoto } from "../lib/votos";
 import { Landing } from "../components/Landing";
