@@ -25,13 +25,11 @@ export function Landing({ onVotar }: Props) {
             >
                 <img
                     src="/logo.jpg"
-                    alt="Logo de El Gato de 5 Patas"
+                    alt="Logo de la Asociación El Gato de 5 Patas"
                     style={{
-                        width: 96,
-                        height: 96,
-                        borderRadius: "50%",
-                        objectFit: "cover",
-                        border: "3px solid var(--color-accent-200)",
+                        width: 200,
+                        height: "auto",
+                        mixBlendMode: "multiply",
                     }}
                 />
 
