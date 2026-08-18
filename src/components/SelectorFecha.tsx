@@ -93,7 +93,8 @@ export function SelectorFecha({ value, onChange }: Props) {
                             top: "calc(100% + 8px)",
                             left: 0,
                             zIndex: 30,
-                            width: 320,
+                            width: "min(320px, calc(100vw - 48px))",
+                            maxWidth: 320,
                             padding: 20,
                         }}
                     >

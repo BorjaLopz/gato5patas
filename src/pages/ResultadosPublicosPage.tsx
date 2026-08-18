@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import confetti from "canvas-confetti";
 import { obtenerConfiguracionVotacion, obtenerTodosLosVotos, agregarResultados } from "../lib/admin";
 import { CATEGORIAS } from "../lib/categorias";
+import { useIsMobile } from "../lib/useIsMobile";
 
 type Estado = "comprobando" | "no-disponible" | "disponible";
 
@@ -24,6 +25,7 @@ export function ResultadosPublicosPage() {
     const [resultados, setResultados] = useState<Record<string, Record<string, number>> | null>(null);
     const [pasoActual, setPasoActual] = useState(0); // 0..CATEGORIAS.length-1 = categorías; == length = pantalla de gracias
     const [reveladas, setReveladas] = useState<Set<string>>(new Set());
+    const esMobile = useIsMobile();
 
     useEffect(() => {
         obtenerConfiguracionVotacion().then(async (config) => {
@@ -224,18 +226,42 @@ export function ResultadosPublicosPage() {
                                             const votos = votosCategoria[n.id] ?? 0;
                                             const pct = totalCategoria > 0 ? Math.round((votos / totalCategoria) * 100) : 0;
                                             return (
-                                                <div key={n.id} style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                                                <div key={n.id} style={{ display: "flex", alignItems: "center", gap: esMobile ? 8 : 12 }}>
                                                     {n.fotoUrl ? (
-                                                        <img src={n.fotoUrl} alt="" style={{ width: 36, height: 36, borderRadius: "50%", objectFit: "cover", flex: "none" }} />
+                                                        <img
+                                                            src={n.fotoUrl}
+                                                            alt=""
+                                                            style={{ width: esMobile ? 28 : 36, height: esMobile ? 28 : 36, borderRadius: "50%", objectFit: "cover", flex: "none" }}
+                                                        />
                                                     ) : (
-                                                        <div style={{ width: 36, height: 36, borderRadius: "50%", background: "var(--color-neutral-200)", flex: "none" }} />
+                                                        <div style={{ width: esMobile ? 28 : 36, height: esMobile ? 28 : 36, borderRadius: "50%", background: "var(--color-neutral-200)", flex: "none" }} />
                                                     )}
-                                                    <span style={{ fontSize: 15, flex: "none", width: 130, textAlign: "left" }}>{n.nombre}</span>
+                                                    <span
+                                                        style={{
+                                                            fontSize: esMobile ? 13 : 15,
+                                                            flex: "none",
+                                                            width: esMobile ? 84 : 130,
+                                                            textAlign: "left",
+                                                            overflow: "hidden",
+                                                            textOverflow: "ellipsis",
+                                                            whiteSpace: "nowrap",
+                                                        }}
+                                                    >
+                                                        {n.nombre}
+                                                    </span>
                                                     <div style={{ flex: 1, height: 10, borderRadius: 999, background: "var(--color-neutral-100)", overflow: "hidden" }}>
                                                         <div style={{ height: "100%", borderRadius: 999, background: "var(--color-accent-2-400)", width: `${pct}%` }} />
                                                     </div>
-                                                    <span style={{ fontSize: 13, color: "var(--color-neutral-700)", flex: "none", width: 70, textAlign: "right" }}>
-                                                        {votos} votos
+                                                    <span
+                                                        style={{
+                                                            fontSize: esMobile ? 12 : 13,
+                                                            color: "var(--color-neutral-700)",
+                                                            flex: "none",
+                                                            width: esMobile ? 48 : 70,
+                                                            textAlign: "right",
+                                                        }}
+                                                    >
+                                                        {votos}{esMobile ? "" : " votos"}
                                                     </span>
                                                 </div>
                                             );

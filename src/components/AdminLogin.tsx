@@ -73,6 +73,7 @@ export function AdminLogin({ onLogin }: Props) {
                             className="input"
                             type="text"
                             autoComplete="username"
+                            placeholder="Introduce usuario administrador"
                             style={{ fontSize: 18, padding: 16 }}
                             value={usuario}
                             onChange={(e) => setUsuario(e.target.value)}
@@ -85,6 +86,7 @@ export function AdminLogin({ onLogin }: Props) {
                             id="password"
                             className="input"
                             type="password"
+                            placeholder="Introduce contraseña"
                             autoComplete="current-password"
                             style={{ fontSize: 18, padding: 16 }}
                             value={password}

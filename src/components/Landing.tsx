@@ -1,8 +1,11 @@
+import { useIsMobile } from "../lib/useIsMobile";
+
 interface Props {
     onVotar: () => void;
 }
 
 export function Landing({ onVotar }: Props) {
+    const esMobile = useIsMobile();
     return (
         <div
             style={{
@@ -15,14 +18,16 @@ export function Landing({ onVotar }: Props) {
                 overflow: "hidden",
             }}
         >
-            {/* Forma decorativa suave detrás del logo, como pide el sistema Organic */}
+            {/* Forma decorativa suave detrás del logo, como pide el sistema Organic.
+          Más pequeñas y más hacia las esquinas en móvil, para que no
+          invadan el bloque de texto en pantallas estrechas. */}
             <div
                 style={{
                     position: "absolute",
-                    top: "8%",
-                    right: "8%",
-                    width: 340,
-                    height: 340,
+                    top: esMobile ? "-6%" : "8%",
+                    right: esMobile ? "-10%" : "8%",
+                    width: esMobile ? 160 : 340,
+                    height: esMobile ? 160 : 340,
                     borderRadius: "50%",
                     background: "var(--color-accent-2-100)",
                     zIndex: 0,
@@ -31,10 +36,10 @@ export function Landing({ onVotar }: Props) {
             <div
                 style={{
                     position: "absolute",
-                    bottom: "10%",
-                    left: "4%",
-                    width: 180,
-                    height: 180,
+                    bottom: esMobile ? "4%" : "10%",
+                    left: esMobile ? "-8%" : "4%",
+                    width: esMobile ? 110 : 180,
+                    height: esMobile ? 110 : 180,
                     borderRadius: "50%",
                     background: "var(--color-accent-100)",
                     zIndex: 0,
@@ -58,7 +63,7 @@ export function Landing({ onVotar }: Props) {
                         src="/logo.jpg"
                         alt="Logo de la Asociación El Gato de 5 Patas"
                         style={{
-                            width: 180,
+                            width: esMobile ? 150 : 180,
                             height: "auto",
                             mixBlendMode: "multiply",
                             display: "block",
@@ -70,7 +75,7 @@ export function Landing({ onVotar }: Props) {
                     Gala del 25 aniversario
                 </span>
 
-                <h1 style={{ fontSize: 42, margin: 0, lineHeight: 1.05 }}>
+                <h1 style={{ fontSize: esMobile ? 32 : 42, margin: 0, lineHeight: 1.1 }}>
                     EL GATO CELEBRA 25 AÑOS
                 </h1>
 
@@ -79,7 +84,7 @@ export function Landing({ onVotar }: Props) {
                         display: "flex",
                         flexDirection: "column",
                         gap: 14,
-                        fontSize: 18,
+                        fontSize: esMobile ? 16 : 18,
                         lineHeight: 1.55,
                         color: "var(--color-neutral-700)",
                     }}
@@ -110,7 +115,7 @@ export function Landing({ onVotar }: Props) {
                 <button
                     className="btn btn-primary btn-block"
                     onClick={onVotar}
-                    style={{ fontSize: 22, padding: "22px 56px" }}
+                    style={{ fontSize: esMobile ? 19 : 22, padding: esMobile ? "18px 24px" : "22px 56px" }}
                 >
                     Votar
                 </button>

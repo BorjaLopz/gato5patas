@@ -96,10 +96,11 @@ export function FormularioVoto({ nombre, onVotoCompletado, onSalir }: Props) {
                                         gap: 16,
                                         padding: "14px 0",
                                         borderBottom: "2px solid var(--color-accent-100)",
+                                        flexWrap: "wrap",
                                     }}
                                 >
                                     <span style={{ fontSize: 16, color: "var(--color-neutral-700)" }}>{cat.titulo}</span>
-                                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                                    <div style={{ display: "flex", alignItems: "center", gap: 12, marginLeft: "auto" }}>
                                         <span style={{ fontFamily: "var(--font-heading)", fontSize: 19 }}>{nominado?.nombre}</span>
                                         {nominado?.fotoUrl ? (
                                             <img

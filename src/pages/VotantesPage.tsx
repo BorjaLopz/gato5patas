@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { obtenerTodosLosVotos, eliminarVoto, type Voto } from "../lib/admin";
 import { AdminGate } from "../components/AdminGate";
-
+import { useIsMobile } from "../lib/useIsMobile";
 function VotantesContenido() {
     const [votos, setVotos] = useState<Voto[] | null>(null);
     const [votoAConfirmar, setVotoAConfirmar] = useState<Voto | null>(null);
     const [eliminando, setEliminando] = useState(false);
+    const esMobile = useIsMobile();
 
     function cargar() {
         obtenerTodosLosVotos().then((lista) => {
@@ -39,48 +40,80 @@ function VotantesContenido() {
     }
 
     return (
-        <main style={{ maxWidth: 900, margin: "0 auto", padding: "32px 24px 64px" }}>
-            <h1 style={{ fontSize: 26, marginBottom: 8 }}>Votantes</h1>
+        <main style={{ maxWidth: 900, margin: "0 auto", padding: "24px 16px 64px" }}>
+            <h1 style={{ fontSize: 24, marginBottom: 8 }}>Votantes</h1>
             <p style={{ marginTop: 0, color: "var(--color-neutral-700)" }}>
                 {votos.length} personas han votado hasta ahora.
             </p>
 
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Fecha</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
+            {esMobile ? (
+                // ── Vista de tarjetas apiladas, más cómoda en pantallas estrechas ──
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                     {votos.map((voto) => (
-                        <tr key={voto.votoId}>
-                            <td>
+                        <div
+                            key={voto.votoId}
+                            className="card"
+                            style={{ display: "flex", flexDirection: "column", gap: 6, padding: 14 }}
+                        >
+                            <span style={{ fontFamily: "var(--font-heading)", fontSize: 16 }}>
                                 {voto.nombre || (
-                                    <em style={{ color: "var(--color-neutral-500)" }}>
-                                        (voto de prueba antiguo, sin nombre — ID: {voto.votoId})
+                                    <em style={{ color: "var(--color-neutral-500)", fontFamily: "var(--font-body)" }}>
+                                        (voto sin nombre — {voto.votoId})
                                     </em>
                                 )}
-                            </td>
-                            <td>
-                                {voto.timestamp?.toDate
-                                    ? voto.timestamp.toDate().toLocaleString("es-ES")
-                                    : "—"}
-                            </td>
-                            <td>
-                                <button
-                                    className="btn btn-ghost"
-                                    style={{ color: "var(--color-accent-700)" }}
-                                    onClick={() => setVotoAConfirmar(voto)}
-                                >
-                                    Eliminar
-                                </button>
-                            </td>
-                        </tr>
+                            </span>
+                            <span style={{ fontSize: 13, color: "var(--color-neutral-700)" }}>
+                                {voto.timestamp?.toDate ? voto.timestamp.toDate().toLocaleString("es-ES") : "—"}
+                            </span>
+                            <button
+                                className="btn btn-ghost"
+                                style={{ color: "var(--color-accent-700)", alignSelf: "flex-start", paddingInline: 0 }}
+                                onClick={() => setVotoAConfirmar(voto)}
+                            >
+                                Eliminar
+                            </button>
+                        </div>
                     ))}
-                </tbody>
-            </table>
+                </div>
+            ) : (
+                // ── Vista de tabla normal en escritorio ──
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Fecha</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {votos.map((voto) => (
+                            <tr key={voto.votoId}>
+                                <td>
+                                    {voto.nombre || (
+                                        <em style={{ color: "var(--color-neutral-500)" }}>
+                                            (voto de prueba antiguo, sin nombre — ID: {voto.votoId})
+                                        </em>
+                                    )}
+                                </td>
+                                <td>
+                                    {voto.timestamp?.toDate
+                                        ? voto.timestamp.toDate().toLocaleString("es-ES")
+                                        : "—"}
+                                </td>
+                                <td>
+                                    <button
+                                        className="btn btn-ghost"
+                                        style={{ color: "var(--color-accent-700)" }}
+                                        onClick={() => setVotoAConfirmar(voto)}
+                                    >
+                                        Eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            )}
 
             {votoAConfirmar && (
                 <div className="dialog-backdrop" style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
