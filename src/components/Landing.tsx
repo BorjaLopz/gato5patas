@@ -1,11 +1,33 @@
+import { useEffect, useState } from "react";
 import { useIsMobile } from "../lib/useIsMobile";
+import { leerConfiguracionPublica } from "../lib/votos";
 
 interface Props {
     onVotar: () => void;
 }
 
+type EstadoVotacion = "comprobando" | "abierta" | "cerrada";
+
 export function Landing({ onVotar }: Props) {
     const esMobile = useIsMobile();
+    const [estadoVotacion, setEstadoVotacion] = useState<EstadoVotacion>("comprobando");
+
+    useEffect(() => {
+        leerConfiguracionPublica()
+            .then((config) => {
+                if (!config) {
+                    // Sin configuración todavía en Firestore: no bloqueamos, se
+                    // asume abierta (evita dejar la votación inaccesible por un
+                    // simple olvido de configurarla).
+                    setEstadoVotacion("abierta");
+                    return;
+                }
+                const abierta = config.activa && new Date() < config.fechaFin.toDate();
+                setEstadoVotacion(abierta ? "abierta" : "cerrada");
+            })
+            .catch(() => setEstadoVotacion("abierta"));
+    }, []);
+
     return (
         <div
             style={{
@@ -115,10 +137,17 @@ export function Landing({ onVotar }: Props) {
                 <button
                     className="btn btn-primary btn-block"
                     onClick={onVotar}
+                    disabled={estadoVotacion !== "abierta"}
                     style={{ fontSize: esMobile ? 19 : 22, padding: esMobile ? "18px 24px" : "22px 56px" }}
                 >
-                    Votar
+                    {estadoVotacion === "comprobando" ? "Cargando..." : "Votar"}
                 </button>
+
+                {estadoVotacion === "cerrada" && (
+                    <p style={{ margin: 0, fontSize: 15, color: "var(--color-accent-700)", alignSelf: "center" }}>
+                        La votación no está disponible en este momento.
+                    </p>
+                )}
 
                 <a
                     href="/resultados-publicos"

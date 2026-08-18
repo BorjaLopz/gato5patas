@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CATEGORIAS } from "../lib/categorias";
 import { guardarVoto } from "../lib/votos";
+import { useIsMobile } from "../lib/useIsMobile";
 
 interface Props {
     nombre: string;
@@ -14,6 +15,7 @@ export function FormularioVoto({ nombre, onVotoCompletado, onSalir }: Props) {
     const [pasoActual, setPasoActual] = useState(0);
     const [selecciones, setSelecciones] = useState<Record<string, string>>({});
     const [estado, setEstado] = useState<Estado>("votando");
+    const esMobile = useIsMobile();
 
     const categoria = CATEGORIAS[pasoActual];
     const esPrimero = pasoActual === 0;
@@ -81,7 +83,7 @@ export function FormularioVoto({ nombre, onVotoCompletado, onSalir }: Props) {
                     </p>
                 </div>
 
-                <main style={{ maxWidth: 640, margin: "0 auto", padding: "24px 24px 140px" }}>
+                <main style={{ maxWidth: 640, margin: "0 auto", padding: esMobile ? "16px 16px 140px" : "24px 24px 140px" }}>
                     <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                         {CATEGORIAS.map((cat) => {
                             const nominadoId = selecciones[cat.id];
@@ -91,34 +93,34 @@ export function FormularioVoto({ nombre, onVotoCompletado, onSalir }: Props) {
                                     key={cat.id}
                                     style={{
                                         display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        gap: 16,
-                                        padding: "14px 0",
+                                        flexDirection: esMobile ? "column" : "row",
+                                        alignItems: esMobile ? "flex-start" : "center",
+                                        justifyContent: esMobile ? "flex-start" : "space-between",
+                                        gap: esMobile ? 8 : 16,
+                                        padding: esMobile ? "12px 0" : "14px 0",
                                         borderBottom: "2px solid var(--color-accent-100)",
-                                        flexWrap: "wrap",
                                     }}
                                 >
-                                    <span style={{ fontSize: 16, color: "var(--color-neutral-700)" }}>{cat.titulo}</span>
-                                    <div style={{ display: "flex", alignItems: "center", gap: 12, marginLeft: "auto" }}>
-                                        <span style={{ fontFamily: "var(--font-heading)", fontSize: 19 }}>{nominado?.nombre}</span>
+                                    <span style={{ fontSize: esMobile ? 13 : 16, color: "var(--color-neutral-700)" }}>{cat.titulo}</span>
+                                    <div style={{ display: "flex", alignItems: "center", gap: esMobile ? 10 : 12 }}>
                                         {nominado?.fotoUrl ? (
                                             <img
                                                 src={nominado.fotoUrl}
                                                 alt=""
-                                                style={{ width: 52, height: 52, borderRadius: "50%", objectFit: "cover", flex: "none" }}
+                                                style={{ width: esMobile ? 40 : 52, height: esMobile ? 40 : 52, borderRadius: "50%", objectFit: "cover", flex: "none" }}
                                             />
                                         ) : (
                                             <div
                                                 style={{
-                                                    width: 52,
-                                                    height: 52,
+                                                    width: esMobile ? 40 : 52,
+                                                    height: esMobile ? 40 : 52,
                                                     borderRadius: "50%",
                                                     background: "var(--color-neutral-200)",
                                                     flex: "none",
                                                 }}
                                             />
                                         )}
+                                        <span style={{ fontFamily: "var(--font-heading)", fontSize: esMobile ? 16 : 19 }}>{nominado?.nombre}</span>
                                     </div>
                                 </div>
                             );
@@ -134,19 +136,27 @@ export function FormularioVoto({ nombre, onVotoCompletado, onSalir }: Props) {
                         right: 0,
                         background: "var(--color-bg)",
                         borderTop: "2px solid var(--color-accent-200)",
-                        padding: "16px 24px",
+                        padding: esMobile ? "12px 16px" : "16px 24px",
                         boxShadow: "var(--shadow-lg)",
                         display: "flex",
                         justifyContent: "center",
                         zIndex: 20,
                     }}
                 >
-                    <div style={{ width: "100%", maxWidth: 640, display: "flex", justifyContent: "space-between", gap: 16 }}>
-                        <button className="btn btn-secondary" onClick={() => setEstado("votando")} style={{ fontSize: 17, padding: "14px 28px" }}>
-                            Volver a revisar
+                    <div style={{ width: "100%", maxWidth: 640, display: "flex", justifyContent: "space-between", gap: esMobile ? 10 : 16 }}>
+                        <button
+                            className="btn btn-secondary"
+                            onClick={() => setEstado("votando")}
+                            style={{ fontSize: esMobile ? 14 : 17, padding: esMobile ? "12px 14px" : "14px 28px" }}
+                        >
+                            {esMobile ? "← Revisar" : "Volver a revisar"}
                         </button>
-                        <button className="btn btn-primary" onClick={confirmarEnvio} style={{ fontSize: 17, padding: "14px 28px" }}>
-                            Confirmar y enviar
+                        <button
+                            className="btn btn-primary"
+                            onClick={confirmarEnvio}
+                            style={{ fontSize: esMobile ? 14 : 17, padding: esMobile ? "12px 14px" : "14px 28px" }}
+                        >
+                            {esMobile ? "Confirmar" : "Confirmar y enviar"}
                         </button>
                     </div>
                 </div>
@@ -212,7 +222,7 @@ export function FormularioVoto({ nombre, onVotoCompletado, onSalir }: Props) {
                 </div>
             </div>
 
-            <main style={{ maxWidth: 900, margin: "0 auto", padding: "24px 24px 140px" }}>
+            <main style={{ maxWidth: 900, margin: "0 auto", padding: esMobile ? "16px 12px 140px" : "24px 24px 140px" }}>
                 <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
                     <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "center", textAlign: "center" }}>
                         <span className="tag tag-accent" style={{ fontSize: 15 }}>
@@ -224,7 +234,7 @@ export function FormularioVoto({ nombre, onVotoCompletado, onSalir }: Props) {
                         </p>
                     </div>
 
-                    <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 20 }}>
+                    <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: esMobile ? 12 : 20 }}>
                         {categoria.nominados.map((nominado) => {
                             const seleccionado = selecciones[categoria.id] === nominado.id;
                             return (
@@ -236,9 +246,9 @@ export function FormularioVoto({ nombre, onVotoCompletado, onSalir }: Props) {
                                         flexDirection: "column",
                                         alignItems: "center",
                                         textAlign: "center",
-                                        gap: 14,
-                                        width: 210,
-                                        padding: "24px 16px 20px",
+                                        gap: esMobile ? 8 : 14,
+                                        width: esMobile ? 148 : 210,
+                                        padding: esMobile ? "16px 10px 14px" : "24px 16px 20px",
                                         cursor: "pointer",
                                         border: `3px solid ${seleccionado ? "var(--color-accent-500)" : "var(--color-neutral-200)"}`,
                                         background: seleccionado ? "var(--color-accent-100)" : "var(--color-surface)",
@@ -256,8 +266,8 @@ export function FormularioVoto({ nombre, onVotoCompletado, onSalir }: Props) {
                                             src={nominado.fotoUrl}
                                             alt=""
                                             style={{
-                                                width: 130,
-                                                height: 130,
+                                                width: esMobile ? 88 : 130,
+                                                height: esMobile ? 88 : 130,
                                                 borderRadius: "50%",
                                                 objectFit: "cover",
                                             }}
@@ -265,21 +275,23 @@ export function FormularioVoto({ nombre, onVotoCompletado, onSalir }: Props) {
                                     ) : (
                                         <div
                                             style={{
-                                                width: 130,
-                                                height: 130,
+                                                width: esMobile ? 88 : 130,
+                                                height: esMobile ? 88 : 130,
                                                 borderRadius: "50%",
                                                 background: "var(--color-neutral-200)",
                                                 display: "flex",
                                                 alignItems: "center",
                                                 justifyContent: "center",
-                                                fontSize: 14,
+                                                fontSize: esMobile ? 12 : 14,
                                                 color: "var(--color-neutral-600)",
                                             }}
                                         >
                                             Foto
                                         </div>
                                     )}
-                                    <span style={{ fontFamily: "var(--font-heading)", fontSize: 19, lineHeight: 1.2 }}>{nominado.nombre}</span>
+                                    <span style={{ fontFamily: "var(--font-heading)", fontSize: esMobile ? 15 : 19, lineHeight: 1.2 }}>
+                                        {nominado.nombre}
+                                    </span>
                                 </label>
                             );
                         })}
@@ -295,15 +307,20 @@ export function FormularioVoto({ nombre, onVotoCompletado, onSalir }: Props) {
                     right: 0,
                     background: "var(--color-bg)",
                     borderTop: "2px solid var(--color-accent-200)",
-                    padding: "16px 24px",
+                    padding: esMobile ? "12px 16px" : "16px 24px",
                     boxShadow: "var(--shadow-lg)",
                     display: "flex",
                     justifyContent: "center",
                     zIndex: 20,
                 }}
             >
-                <div style={{ width: "100%", maxWidth: 900, display: "flex", justifyContent: "space-between", gap: 16 }}>
-                    <button className="btn btn-secondary" onClick={anterior} disabled={esPrimero} style={{ fontSize: 19, padding: "18px 32px" }}>
+                <div style={{ width: "100%", maxWidth: 900, display: "flex", justifyContent: "space-between", gap: esMobile ? 10 : 16 }}>
+                    <button
+                        className="btn btn-secondary"
+                        onClick={anterior}
+                        disabled={esPrimero}
+                        style={{ fontSize: esMobile ? 15 : 19, padding: esMobile ? "12px 16px" : "18px 32px" }}
+                    >
                         ← Anterior
                     </button>
                     {esUltimo ? (
@@ -311,16 +328,16 @@ export function FormularioVoto({ nombre, onVotoCompletado, onSalir }: Props) {
                             className="btn btn-primary"
                             onClick={() => setEstado("confirmando")}
                             disabled={!categoriaRespondida || totalRespondidas < CATEGORIAS.length}
-                            style={{ fontSize: 19, padding: "18px 32px" }}
+                            style={{ fontSize: esMobile ? 15 : 19, padding: esMobile ? "12px 16px" : "18px 32px" }}
                         >
-                            Revisar y guardar
+                            {esMobile ? "Revisar" : "Revisar y guardar"}
                         </button>
                     ) : (
                         <button
                             className="btn btn-primary"
                             onClick={siguiente}
                             disabled={!categoriaRespondida}
-                            style={{ fontSize: 19, padding: "18px 32px" }}
+                            style={{ fontSize: esMobile ? 15 : 19, padding: esMobile ? "12px 16px" : "18px 32px" }}
                         >
                             Siguiente →
                         </button>

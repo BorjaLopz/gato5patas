@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import confetti from "canvas-confetti";
 import { iniciarSesionAnonima } from "../lib/auth";
 import { yaVoto } from "../lib/votos";
 import { Landing } from "../components/Landing";
 import { NombreLogin } from "../components/NombreLogin";
 import { FormularioVoto } from "../components/FormularioVoto";
+
+const COLORES_CONFETI = ["#c67139", "#d67f48", "#7a8a5e", "#aebf92"];
 
 type Estado =
     | "landing"
@@ -44,6 +47,18 @@ export function VotarPage() {
         setNombre("");
         setEstado("landing");
     }
+
+    useEffect(() => {
+        if (estado === "voto-guardado") {
+            confetti({
+                particleCount: 120,
+                spread: 80,
+                origin: { y: 0.5 },
+                colors: COLORES_CONFETI,
+                startVelocity: 40,
+            });
+        }
+    }, [estado]);
 
     const centrado: React.CSSProperties = {
         minHeight: "100vh",
@@ -126,28 +141,21 @@ export function VotarPage() {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "flex-start",
-                        gap: 16,
+                        gap: 18,
                     }}
                 >
-                    <div
-                        style={{
-                            width: 64,
-                            height: 64,
-                            borderRadius: "50%",
-                            background: "var(--color-accent-2-100)",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
-                    >
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-2-700)" strokeWidth="2.75" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M20 6L9 17l-5-5"></path>
-                        </svg>
+                    <div style={{ background: "var(--color-surface)", lineHeight: 0 }}>
+                        <img
+                            src="/logo.jpg"
+                            alt=""
+                            style={{ width: 90, height: "auto", mixBlendMode: "multiply", display: "block" }}
+                        />
                     </div>
-                    <h1 style={{ fontSize: 30, margin: 0 }}>¡Has votado con éxito!</h1>
-                    <p style={{ margin: 0, fontSize: 18, color: "var(--color-neutral-700)" }}>
-                        Gracias por participar en la Gala Gatuna. Tu votación se ha
-                        registrado correctamente.
+
+                    <h1 style={{ fontSize: 30, margin: 0 }}>¡Gracias, {nombre}!</h1>
+                    <p style={{ margin: 0, fontSize: 18, color: "var(--color-neutral-700)", lineHeight: 1.5 }}>
+                        Tu voto ya forma parte de esta celebración de los{" "}
+                        <strong style={{ color: "var(--color-text)" }}>25 años del Gato de 5 Patas</strong>.
                     </p>
                     <button className="btn btn-primary" onClick={volverAlInicio} style={{ fontSize: 16, marginTop: 8 }}>
                         Volver al inicio
