@@ -82,7 +82,7 @@ export function NombreLogin({ onContinuar, onVolver }: Props) {
                 </form>
 
                 <a href="/resultados" style={{ fontSize: 15, color: "var(--color-accent-700)" }}>
-                    ¿Eres organizador/a? Ver resultados →
+                    ¿Eres organizador/a? →
                 </a>
             </div>
         </div>
