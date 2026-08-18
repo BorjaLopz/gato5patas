@@ -43,7 +43,7 @@ function ResultadosContenido() {
                 }}
             >
                 <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                    <h1 style={{ fontSize: 26, margin: 0 }}>Resultados de la Gala Gatuna</h1>
+                    <h1 style={{ fontSize: 26, margin: 0 }}>Resultados de las votaciones</h1>
                     <span style={{ fontSize: 15, color: "var(--color-neutral-700)" }}>
                         {totalVotantes} votos registrados en total
                     </span>

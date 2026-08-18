@@ -64,7 +64,7 @@ export function ResultadosPublicosPage() {
                 >
                     <h1 style={{ fontSize: 26, margin: 0 }}>Resultados aún no disponibles</h1>
                     <p style={{ margin: 0, fontSize: 17, color: "var(--color-neutral-700)" }}>
-                        Los ganadores de la Gala Gatuna se anunciarán pronto. ¡Vuelve más
+                        Los ganadores se anunciarán pronto. ¡Vuelve más
                         tarde!
                     </p>
                     <a href="/" style={{ fontSize: 15, color: "var(--color-accent-700)" }}>
@@ -166,7 +166,14 @@ export function ResultadosPublicosPage() {
                     textAlign: "center",
                 }}
             >
-                <h1 style={{ fontSize: 24, margin: 0 }}>Gala Gatuna — 25 años del Gato de 5 Patas</h1>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
+                    <img
+                        src="/logo.jpg"
+                        alt=""
+                        style={{ width: 40, height: "auto", mixBlendMode: "multiply", flex: "none" }}
+                    />
+                    <h1 style={{ fontSize: 24, margin: 0 }}>25 años del Gato de 5 Patas</h1>
+                </div>
                 <span className="tag tag-accent" style={{ fontSize: 13, marginTop: 6, display: "inline-block" }}>
                     Categoría {pasoActual + 1} de {CATEGORIAS.length}
                 </span>

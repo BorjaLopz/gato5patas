@@ -95,8 +95,11 @@ function ConfiguracionVotacionContenido() {
                 <ToggleSwitch
                     checked={activa}
                     onChange={setActiva}
-                    label="Votación activa (desactiva para pausarla manualmente)"
+                    label="Votación activa"
                 />
+                <p style={{ margin: "-12px 0 0", fontSize: 13, color: "var(--color-neutral-600)" }}>
+                    Se puede desactivar manualmente para realizar cualquier cambio
+                </p>
 
                 <ToggleSwitch
                     checked={resultadosPublicos}
@@ -104,9 +107,7 @@ function ConfiguracionVotacionContenido() {
                     label="Resultados visibles para todo el mundo"
                 />
                 <p style={{ margin: "-12px 0 0", fontSize: 13, color: "var(--color-neutral-600)" }}>
-                    Actívalo cuando quieras revelar el ganador de cada categoría — por
-                    ejemplo, en directo durante la gala. Se comparte en{" "}
-                    <code>/resultados-publicos</code>.
+                    Activar cuando se quieran revelar los resultados de la votación
                 </p>
 
                 <button type="submit" className="btn btn-primary" disabled={guardando} style={{ fontSize: 16, padding: "14px 24px" }}>
@@ -119,11 +120,6 @@ function ConfiguracionVotacionContenido() {
                     </p>
                 )}
 
-                <p style={{ margin: 0, fontSize: 13, color: "var(--color-neutral-600)" }}>
-                    Nota: pasada esta fecha, Firestore rechaza cualquier voto nuevo
-                    aunque alguien intente saltarse el frontend — la validación real
-                    vive en las Security Rules, no aquí.
-                </p>
             </form>
         </main>
     );
