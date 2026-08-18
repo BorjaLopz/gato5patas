@@ -3,6 +3,7 @@ import { VotarPage } from "./pages/VotarPage";
 import { ResultadosPage } from "./pages/ResultadosPage";
 import { VotantesPage } from "./pages/VotantesPage";
 import { ConfiguracionVotacionPage } from "./pages/ConfiguracionVotacionPage";
+import { ResultadosPublicosPage } from "./pages/ResultadosPublicosPage";
 
 export default function App() {
   return (
@@ -11,6 +12,10 @@ export default function App() {
         {/* Landing + nombre + voto viven todos dentro de VotarPage */}
         <Route path="/" element={<VotarPage />} />
         <Route path="/votar" element={<VotarPage />} />
+
+        {/* Pública: solo muestra algo si el organizador ha activado
+            "resultadosPublicos" desde /configuracion. */}
+        <Route path="/resultados-publicos" element={<ResultadosPublicosPage />} />
 
         {/* Panel de organizadores, protegido por AdminGate con login
             usuario + contraseña (sin email real de por medio). */}

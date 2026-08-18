@@ -12,6 +12,7 @@ import { db } from "./firebase";
 export interface ConfiguracionVotacion {
     fechaFin: Timestamp;
     activa: boolean;
+    resultadosPublicos?: boolean;
 }
 
 export interface Voto {

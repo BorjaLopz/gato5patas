@@ -21,6 +21,7 @@ function ConfiguracionVotacionContenido() {
     });
     const [hora, setHora] = useState("23:59"); // "HH:mm", campo aparte de la fecha
     const [activa, setActiva] = useState(true);
+    const [resultadosPublicos, setResultadosPublicos] = useState(false);
     const [cargando, setCargando] = useState(true);
     const [guardando, setGuardando] = useState(false);
     const [guardadoOk, setGuardadoOk] = useState(false);
@@ -32,6 +33,7 @@ function ConfiguracionVotacionContenido() {
                 setFecha(f);
                 setHora(`${pad(f.getHours())}:${pad(f.getMinutes())}`);
                 setActiva(config.activa);
+                setResultadosPublicos(config.resultadosPublicos ?? false);
             }
             setCargando(false);
         });
@@ -52,6 +54,7 @@ function ConfiguracionVotacionContenido() {
             await actualizarConfiguracionVotacion({
                 fechaFin: Timestamp.fromDate(combinarFechaYHora()),
                 activa,
+                resultadosPublicos,
             });
             setGuardadoOk(true);
         } finally {
@@ -94,6 +97,17 @@ function ConfiguracionVotacionContenido() {
                     onChange={setActiva}
                     label="Votación activa (desactiva para pausarla manualmente)"
                 />
+
+                <ToggleSwitch
+                    checked={resultadosPublicos}
+                    onChange={setResultadosPublicos}
+                    label="Resultados visibles para todo el mundo"
+                />
+                <p style={{ margin: "-12px 0 0", fontSize: 13, color: "var(--color-neutral-600)" }}>
+                    Actívalo cuando quieras revelar el ganador de cada categoría — por
+                    ejemplo, en directo durante la gala. Se comparte en{" "}
+                    <code>/resultados-publicos</code>.
+                </p>
 
                 <button type="submit" className="btn btn-primary" disabled={guardando} style={{ fontSize: 16, padding: "14px 24px" }}>
                     {guardando ? "Guardando..." : "Guardar configuración"}

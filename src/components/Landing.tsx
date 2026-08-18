@@ -11,37 +11,76 @@ export function Landing({ onVotar }: Props) {
                 alignItems: "center",
                 justifyContent: "center",
                 padding: 24,
+                position: "relative",
+                overflow: "hidden",
             }}
         >
+            {/* Forma decorativa suave detrás del logo, como pide el sistema Organic */}
+            <div
+                style={{
+                    position: "absolute",
+                    top: "8%",
+                    right: "8%",
+                    width: 340,
+                    height: 340,
+                    borderRadius: "50%",
+                    background: "var(--color-accent-2-100)",
+                    zIndex: 0,
+                }}
+            />
+            <div
+                style={{
+                    position: "absolute",
+                    bottom: "10%",
+                    left: "4%",
+                    width: 180,
+                    height: 180,
+                    borderRadius: "50%",
+                    background: "var(--color-accent-100)",
+                    zIndex: 0,
+                }}
+            />
+
             <div
                 style={{
                     width: "100%",
                     maxWidth: 640,
                     display: "flex",
                     flexDirection: "column",
-                    gap: 28,
+                    gap: 24,
                     alignItems: "flex-start",
+                    position: "relative",
+                    zIndex: 1,
                 }}
             >
-                <img
-                    src="/logo.jpg"
-                    alt="Logo de la Asociación El Gato de 5 Patas"
-                    style={{
-                        width: 200,
-                        height: "auto",
-                        mixBlendMode: "multiply",
-                    }}
-                />
+                <div style={{ background: "var(--color-bg)", lineHeight: 0 }}>
+                    <img
+                        src="/logo.jpg"
+                        alt="Logo de la Asociación El Gato de 5 Patas"
+                        style={{
+                            width: 180,
+                            height: "auto",
+                            mixBlendMode: "multiply",
+                            display: "block",
+                        }}
+                    />
+                </div>
 
-                <h1 style={{ fontSize: 40, margin: 0 }}>EL GATO CELEBRA 25 AÑOS</h1>
+                <span className="tag tag-accent-2" style={{ fontSize: 14 }}>
+                    Gala del 25 aniversario
+                </span>
+
+                <h1 style={{ fontSize: 42, margin: 0, lineHeight: 1.05 }}>
+                    EL GATO CELEBRA 25 AÑOS
+                </h1>
 
                 <div
                     style={{
                         display: "flex",
                         flexDirection: "column",
-                        gap: 16,
-                        fontSize: 19,
-                        lineHeight: 1.6,
+                        gap: 14,
+                        fontSize: 18,
+                        lineHeight: 1.55,
                         color: "var(--color-neutral-700)",
                     }}
                 >
@@ -75,6 +114,13 @@ export function Landing({ onVotar }: Props) {
                 >
                     Votar
                 </button>
+
+                <a
+                    href="/resultados-publicos"
+                    style={{ fontSize: 15, color: "var(--color-accent-700)", alignSelf: "center" }}
+                >
+                    Ver resultados de la gala →
+                </a>
             </div>
         </div>
     );
