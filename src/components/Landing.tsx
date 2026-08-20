@@ -149,12 +149,14 @@ export function Landing({ onVotar }: Props) {
                     </p>
                 )}
 
-                <a
-                    href="/resultados-publicos"
-                    style={{ fontSize: 15, color: "var(--color-accent-700)", alignSelf: "center" }}
-                >
-                    Ver resultados de la gala →
-                </a>
+                {estadoVotacion !== "abierta" &&
+                    <a
+                        href="/resultados-publicos"
+                        style={{ fontSize: 15, color: "var(--color-accent-700)", alignSelf: "center" }}
+                    >
+                        Ver resultados de la gala →
+                    </a>
+                }
             </div>
         </div>
     );

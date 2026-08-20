@@ -181,7 +181,7 @@ export const CATEGORIAS: Categoria[] = [
     },
     {
         id: "gatuno-valiente",
-        titulo: "Gatuno valiente",
+        titulo: "Gatuna/o valiente",
         descripcion: "Por afrontar nuevos desafíos.",
         nominados: [
             nominado("valiente-galisteo-adultis", "Galisteo (adultis)"),
@@ -193,7 +193,7 @@ export const CATEGORIAS: Categoria[] = [
     },
     {
         id: "gatuno-creativo",
-        titulo: "Gatuno creativo",
+        titulo: "Gatuna/o creativo",
         descripcion: "Por aportar ideas nuevas.",
         nominados: [
             nominado("creativo-isa-equipo", "Isa (equipo)"),
@@ -206,7 +206,7 @@ export const CATEGORIAS: Categoria[] = [
     },
     {
         id: "gatuno-inspirador",
-        titulo: "Gatuno inspirador",
+        titulo: "Gatuna/o inspirador",
         descripcion: "Por motivar a otros con su actitud y energía.",
         nominados: [
             nominado("inspirador-mery", "Mery"),
@@ -218,7 +218,7 @@ export const CATEGORIAS: Categoria[] = [
     },
     {
         id: "gatuno-puente",
-        titulo: "Gatuno puente",
+        titulo: "Gatuna/o puente",
         descripcion: "Por conectar personas y generaciones y crear comunidad.",
         nominados: [
             nominado("puente-gari", "Gari"),
@@ -230,7 +230,7 @@ export const CATEGORIAS: Categoria[] = [
     },
     {
         id: "gatuno-companero",
-        titulo: "Gatuno compañero",
+        titulo: "Gatuna/o compañero",
         descripcion: "Por su apoyo constante a los demás.",
         nominados: [
             nominado("companero-juancar-adultis", "Juancar (adultis)"),
@@ -243,7 +243,7 @@ export const CATEGORIAS: Categoria[] = [
     },
     {
         id: "gatuno-corazon",
-        titulo: "Gatuno de corazón",
+        titulo: "Gatuna/o de corazón",
         descripcion: "Por su calidad humana.",
         nominados: [
             nominado("corazon-moya-adultis", "Moya (adultis)"),
