@@ -3,6 +3,7 @@ import confetti from "canvas-confetti";
 import { obtenerConfiguracionVotacion, obtenerTodosLosVotos, agregarResultados } from "../lib/admin";
 import { CATEGORIAS } from "../lib/categorias";
 import { useIsMobile } from "../lib/useIsMobile";
+import { FotoNominado } from "../components/FotoNominado";
 
 type Estado = "comprobando" | "no-disponible" | "disponible";
 
@@ -191,7 +192,7 @@ export function ResultadosPublicosPage() {
                             {categoria.nominados.map((n) => (
                                 <div key={n.id} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, width: 130 }}>
                                     {n.fotoUrl ? (
-                                        <img src={n.fotoUrl} alt="" style={{ width: 96, height: 96, borderRadius: "50%", objectFit: "cover" }} />
+                                        <FotoNominado fotoUrl={n.fotoUrl} size={96} />
                                     ) : (
                                         <div style={{ width: 96, height: 96, borderRadius: "50%", background: "var(--color-neutral-200)" }} />
                                     )}
@@ -210,10 +211,10 @@ export function ResultadosPublicosPage() {
                             <>
                                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
                                     {ganador.fotoUrl ? (
-                                        <img
-                                            src={ganador.fotoUrl}
-                                            alt=""
-                                            style={{ width: 160, height: 160, borderRadius: "50%", objectFit: "cover", border: "5px solid var(--color-accent-500)" }}
+                                        <FotoNominado
+                                            fotoUrl={ganador.fotoUrl}
+                                            size={160}
+                                            style={{ border: "5px solid var(--color-accent-500)" }}
                                         />
                                     ) : (
                                         <div
@@ -235,11 +236,7 @@ export function ResultadosPublicosPage() {
                                             return (
                                                 <div key={n.id} style={{ display: "flex", alignItems: "center", gap: esMobile ? 8 : 12 }}>
                                                     {n.fotoUrl ? (
-                                                        <img
-                                                            src={n.fotoUrl}
-                                                            alt=""
-                                                            style={{ width: esMobile ? 28 : 36, height: esMobile ? 28 : 36, borderRadius: "50%", objectFit: "cover", flex: "none" }}
-                                                        />
+                                                        <FotoNominado fotoUrl={n.fotoUrl} size={esMobile ? 28 : 36} />
                                                     ) : (
                                                         <div style={{ width: esMobile ? 28 : 36, height: esMobile ? 28 : 36, borderRadius: "50%", background: "var(--color-neutral-200)", flex: "none" }} />
                                                     )}

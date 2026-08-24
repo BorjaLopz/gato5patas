@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CATEGORIAS } from "../lib/categorias";
 import { guardarVoto } from "../lib/votos";
 import { useIsMobile } from "../lib/useIsMobile";
+import { FotoNominado } from "./FotoNominado";
 
 interface Props {
     nombre: string;
@@ -104,11 +105,7 @@ export function FormularioVoto({ nombre, onVotoCompletado, onSalir }: Props) {
                                     <span style={{ fontSize: esMobile ? 13 : 16, color: "var(--color-neutral-700)" }}>{cat.titulo}</span>
                                     <div style={{ display: "flex", alignItems: "center", gap: esMobile ? 10 : 12 }}>
                                         {nominado?.fotoUrl ? (
-                                            <img
-                                                src={nominado.fotoUrl}
-                                                alt=""
-                                                style={{ width: esMobile ? 40 : 52, height: esMobile ? 40 : 52, borderRadius: "50%", objectFit: "cover", flex: "none" }}
-                                            />
+                                            <FotoNominado fotoUrl={nominado.fotoUrl} size={esMobile ? 40 : 52} />
                                         ) : (
                                             <div
                                                 style={{
@@ -262,16 +259,7 @@ export function FormularioVoto({ nombre, onVotoCompletado, onSalir }: Props) {
                                         style={{ position: "absolute", opacity: 0, width: 1, height: 1 }}
                                     />
                                     {nominado.fotoUrl ? (
-                                        <img
-                                            src={nominado.fotoUrl}
-                                            alt=""
-                                            style={{
-                                                width: esMobile ? 88 : 130,
-                                                height: esMobile ? 88 : 130,
-                                                borderRadius: "50%",
-                                                objectFit: "cover",
-                                            }}
-                                        />
+                                        <FotoNominado fotoUrl={nominado.fotoUrl} size={esMobile ? 88 : 130} />
                                     ) : (
                                         <div
                                             style={{

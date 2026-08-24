@@ -14,8 +14,10 @@ export interface Categoria {
 /**
  * Extensión del archivo de foto para cada nominado con foto ya recibida
  * (carpeta public/fotos-nominados/). Los nominados que no aparecen aquí
- * todavía no han mandado su foto — se muestra un placeholder para ellos.
+ * no tienen foto propia (sin autorización, menores, etc.) y muestran
+ * el logo de la asociación como sustituto.
  */
+export const LOGO_ASOCIACION = "/logo.jpg";
 const FOTOS_DISPONIBLES: Record<string, string> = {
     "aliada-ayto-rivas": ".jpg",
     "aliada-caixa-rivas": ".jpg",
@@ -75,11 +77,22 @@ const FOTOS_DISPONIBLES: Record<string, string> = {
     "valiente-alvaro-jovenes": ".jpg",
     "valiente-galisteo-adultis": ".jpg",
     "valiente-juanky": ".jpg",
+    "companero-lauri-jovenes": ".png",
+    "comprometida-juli": ".jpg",
+    "comprometida-monica": ".jpg",
+    "comprometida-yaiza": ".jpg",
+    "emergente-alvaro-gestor": ".jpg",
+    "legendario-candela": ".jpg",
+    "legendario-diana-lima": ".jpg",
+    "motor-violeta-jovenes": ".jpg",
+    "puente-cris-de-tena": ".jpg",
+    "puente-oscar-jovenes": ".jpeg",
+    "referente-samu": ".jpg"
 };
 
 function nominado(id: string, nombre: string): Nominado {
     const ext = FOTOS_DISPONIBLES[id];
-    return { id, nombre, fotoUrl: ext ? `/fotos-nominados/${id}${ext}` : undefined };
+    return { id, nombre, fotoUrl: ext ? `/fotos-nominados/${id}${ext}` : LOGO_ASOCIACION };
 }
 
 export const CATEGORIAS: Categoria[] = [
