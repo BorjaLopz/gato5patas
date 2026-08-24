@@ -56,7 +56,7 @@ const FOTOS_DISPONIBLES: Record<string, string> = {
     "inspirador-mery": ".jpg",
     "inspirador-paloma": ".png",
     "inspirador-sergio-adultis": ".jpg",
-    "legendario-laura-pichi": ".png",
+    "legendario-laura-pichi": ".jpg",
     "legendario-martus": ".jpg",
     "legendario-yudith": ".jpg",
     "motor-eder-adolescentes": ".jpeg",
