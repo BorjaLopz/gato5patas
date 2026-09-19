@@ -11,6 +11,7 @@ type EstadoVotacion = "comprobando" | "abierta" | "cerrada";
 export function Landing({ onVotar }: Props) {
     const esMobile = useIsMobile();
     const [estadoVotacion, setEstadoVotacion] = useState<EstadoVotacion>("comprobando");
+    const [resultadosPublicos, setResultadosPublicos] = useState(false);
 
     useEffect(() => {
         leerConfiguracionPublica()
@@ -24,6 +25,7 @@ export function Landing({ onVotar }: Props) {
                 }
                 const abierta = config.activa && new Date() < config.fechaFin.toDate();
                 setEstadoVotacion(abierta ? "abierta" : "cerrada");
+                setResultadosPublicos(config.resultadosPublicos ?? false);
             })
             .catch(() => setEstadoVotacion("abierta"));
     }, []);
@@ -149,7 +151,7 @@ export function Landing({ onVotar }: Props) {
                     </p>
                 )}
 
-                {estadoVotacion !== "abierta" &&
+                {resultadosPublicos &&
                     <a
                         href="/resultados-publicos"
                         style={{ fontSize: 15, color: "var(--color-accent-700)", alignSelf: "center" }}
