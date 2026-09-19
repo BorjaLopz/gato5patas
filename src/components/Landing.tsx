@@ -159,6 +159,13 @@ export function Landing({ onVotar }: Props) {
                         Ver resultados de la gala →
                     </a>
                 }
+
+                <a
+                    href="/configuracion"
+                    style={{ fontSize: 13, color: "var(--color-neutral-600)", alignSelf: "center" }}
+                >
+                    Acceso organizadores
+                </a>
             </div>
         </div>
     );
